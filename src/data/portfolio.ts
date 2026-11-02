@@ -64,7 +64,7 @@ export const education = [
 export const experience = [
   {
     company: 'SRMCEM — Institution’s Innovation Council',
-    role: 'Event Management Coordinator',
+    role: 'Event Management and PR Lead',
     place: 'Lucknow',
     period: '2026 – Present',
     points: ['Leading and supporting innovation-focused events, student engagement, outreach, and event execution.'],
@@ -250,9 +250,9 @@ export const achievements: Achievement[] = [
   },
   {
     id: 'iic',
-    title: 'Event Coordinator',
+    title: 'Events & PR Lead',
     org: 'Institution’s Innovation Council',
-    detail: 'Leading innovation-focused events, student engagement, outreach and event execution at SRMCEM.',
+    detail: 'Leading innovation-focused events, PR, student engagement, outreach and event execution at SRMCEM.',
     laurel: 'Innovation',
   },
   {
@@ -408,7 +408,7 @@ export const skillEvidence: Record<string, string[]> = {
   PGVector: ['CONTRIVE8'],
   Vercel: ['Shiksha Setu', 'SahayogAI'],
   'Data Structures & Algorithms': ['AlgoZenith Chapter Lead'],
-  Leadership: ['SIH Team Lead', 'AlgoZenith Chapter Lead', 'IIC Event Coordinator'],
+  Leadership: ['SIH Team Lead', 'AlgoZenith Chapter Lead', 'IIC Event Management & PR Lead'],
   Communication: ['Hackathon pitching', 'Placement Coordinator'],
   Teamwork: ['Smart India Hackathon', 'Multiple hackathons'],
 };
@@ -557,9 +557,9 @@ export const seasons: Season[] = [
       },
       {
         code: 'S05 E02',
-        title: 'The Organizer',
-        description: 'Event Management Coordinator at the Institution’s Innovation Council — events, outreach and engagement.',
-        tags: ['IIC', 'Events'],
+        title: 'The Organizer & Voice',
+        description: 'Event Management and PR Lead at the Institution’s Innovation Council — events, PR, outreach and engagement.',
+        tags: ['IIC', 'Events', 'PR'],
         runtime: '2026 – Present',
         palette: amber,
       },
@@ -587,7 +587,7 @@ export const topPicks: TopPick[] = [
   { label: 'Specialization', title: 'Data Science', detail: 'B.Tech CSE, SRMCEM', palette: indigo },
   { label: 'Go-to stack', title: 'React + Supabase', detail: 'with TypeScript & PostgreSQL', palette: ocean },
   { label: 'AI toolkit', title: 'LLMs & Agents', detail: 'RAG • Embeddings • Vector search', palette: violet },
-  { label: 'Innovation', title: 'IIC Coordinator', detail: 'Events & outreach', palette: amber },
+  { label: 'Innovation', title: 'IIC Events & PR Lead', detail: 'Events, PR & outreach', palette: amber },
 ];
 
 /** Slides for the "▶ Play Intro" cinematic sequence. */
@@ -614,7 +614,7 @@ export const introSlides: IntroSlide[] = [
   {
     kicker: 'Leadership',
     title: 'Top Moments',
-    lines: ['Team Lead — Smart India Hackathon', 'Chapter Lead — AlgoZenith, SRMCEM', 'Event Coordinator — Innovation Council'],
+    lines: ['Team Lead — Smart India Hackathon', 'Chapter Lead — AlgoZenith, SRMCEM', 'Event Management & PR Lead — Innovation Council'],
   },
   {
     kicker: 'Current mission',

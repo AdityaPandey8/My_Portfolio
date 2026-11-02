@@ -1,4 +1,5 @@
-import { lazy, Suspense, useRef } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { profile } from '../data/portfolio';
 import { useSmoothScroll } from '../hooks/smoothScroll';
@@ -15,11 +16,29 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
   const blur = useTransform(scrollYProgress, [0, 1], ['blur(16px)', 'blur(0px)']);
   const opacity = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
 
-  const ctas = [
-    { label: "Let's Build", href: `mailto:${profile.email}?subject=${encodeURIComponent("Let's build something")}`, primary: true, cursor: 'play' },
-    { label: 'LinkedIn', href: profile.links.linkedin, cursor: 'link' },
-    { label: 'GitHub', href: profile.links.github, cursor: 'link' },
-    { label: 'Email', href: `mailto:${profile.email}`, cursor: 'link' },
+  const [toast, setToast] = useState<string | null>(null);
+
+  // "Let's Build" opens a pre-written Gmail draft to Aditya in a new tab — works without a desktop mail app.
+  const subject = "Let's build something together";
+  const body = `Hi Aditya,\n\nI came across your portfolio and would love to connect about:\n\n- \n\nBest,\n`;
+  const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  // "Email" copies the address (and still offers the mail app via mailto).
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setToast(`Copied ${profile.email}`);
+    } catch {
+      setToast(profile.email);
+    }
+    window.setTimeout(() => setToast(null), 2600);
+  };
+
+  const ctas: { label: string; href: string; primary?: boolean; cursor: string; onClick?: () => void; external?: boolean }[] = [
+    { label: "Let's Build", href: gmail, primary: true, cursor: 'play', external: true },
+    { label: 'LinkedIn', href: profile.links.linkedin, cursor: 'link', external: true },
+    { label: 'GitHub', href: profile.links.github, cursor: 'link', external: true },
+    { label: 'Email', href: `mailto:${profile.email}`, cursor: 'link', onClick: copyEmail },
   ];
 
   return (
@@ -68,8 +87,10 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
             <Magnetic>
               <a
                 href={c.href}
-                target={c.href.startsWith('http') ? '_blank' : undefined}
-                rel={c.href.startsWith('http') ? 'noreferrer' : undefined}
+                target={c.external ? '_blank' : undefined}
+                rel={c.external ? 'noopener noreferrer' : undefined}
+                onClick={c.onClick}
+                title={c.label === 'Email' ? `${profile.email} — click to copy` : undefined}
                 data-cursor={c.cursor}
                 className={`flex min-h-12 items-center gap-2 rounded-full px-7 text-sm font-bold tracking-[0.12em] transition ${
                   c.primary ? 'bg-crimson text-white shadow-[0_0_50px_rgba(109,74,255,0.5)] hover:bg-crimson-2' : 'border border-white/25 text-bone hover:border-bone hover:bg-white/10'
@@ -83,6 +104,27 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
           </motion.div>
         ))}
       </motion.div>
+
+      <p className="relative mt-6 text-xs text-smoke">
+        or write directly to{' '}
+        <button type="button" onClick={copyEmail} className="font-semibold text-mist underline decoration-white/20 underline-offset-4 hover:text-bone">
+          {profile.email}
+        </button>
+      </p>
+
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            role="status"
+            className="glass fixed bottom-6 left-1/2 z-[150] -translate-x-1/2 rounded-xl px-5 py-3 text-sm text-bone"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+          >
+            ✓ {toast}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="relative mt-16 flex flex-wrap justify-center gap-6 text-xs font-semibold tracking-[0.24em] text-smoke">
         <button type="button" onClick={() => scrollTo(0, { offset: 0 })} className="hover:text-bone">
