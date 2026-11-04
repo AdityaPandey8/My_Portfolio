@@ -168,6 +168,8 @@ export const projects: Project[] = [
       { value: 'Live', label: 'weather & mandi data' },
       { value: 'Edge', label: 'Supabase Edge Functions' },
     ],
+    github: 'https://github.com/AdityaPandey8/kishu.git',
+    live: 'https://kishu-ivory.vercel.app/',
     palette: { from: '#03150c', via: '#0f6b3c', to: '#050a07', accent: '#4ade80' },
     motif: 'leaf',
   },
@@ -672,3 +674,4 @@ export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: s
   moments: { nav: 'Moments', card: 'Leadership', meta: `${achievements.length} Moments`, palette: violet },
   story: { nav: 'Resume', card: 'The Full Story', meta: 'Resume • View & download', palette: indigo },
 };
+
